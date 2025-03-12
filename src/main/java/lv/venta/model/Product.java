@@ -31,12 +31,6 @@ public class Product {
 		setQuantity(inputQuantity);
 	}
 
-	//TODO
-	//Create new controller function as a get
-	//create new product
-	//add this product in model
-	//specify which html file should be shoed
-	//create the html file
-	
+
 
 }

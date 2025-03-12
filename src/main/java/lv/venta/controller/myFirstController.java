@@ -1,5 +1,7 @@
 package lv.venta.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import org.springframework.stereotype.Controller;
@@ -39,4 +41,30 @@ public class myFirstController {
 		return "test-product-page"; // it will show the page
 	}
 	
+	@GetMapping("/arrayproducts") //localhost:8080/arrayproducts
+	public String getControllerArrayProduct(Model model)
+	{
+
+		ArrayList<Product> allProducts = new ArrayList<Product>(
+				Arrays.asList(
+						new Product("Banana", 1.99f, "Eco, yellow", 100 ),
+						new Product("monkey", 99.99f, "swinging, brown", 3 ),
+						new Product("keyboard", 18.99f, "Economic, bloack", 151 ),
+						new Product("Apple", 3.99f, "healthy, red", 10000 ),
+						new Product("sugar", 0.99f, "sugary, white", 6 )
+						
+						
+						));
+		model.addAttribute("boxies", allProducts);
+		return "array-product-page";
+	}
+	
 }
+//TODO
+//declare controller function as get
+//create Arraylist for products
+//save arraylist in the box
+//specify the html file what will be showed
+//create the html file
+//test controller
+

@@ -36,22 +36,47 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 	}
 
 	@Override
-	public Product retrieveByID(long id) throws Exception {
+	public Product retrieveByID(long id) throws Exception 
+	{
+		if(id <= 0) 
+		{
+			throw new Exception("Id should be positive");
+		}
+		if(!prodRepo.existsById(id))
+		{
+			throw new Exception("The product with id "+ id + "doesn't exist");
+		}
 		
-		if(prodRepo.findById())
+		Product oneProduct = prodRepo.findById(id).get();
+		return oneProduct;
+		
+		
 	}
 
 	@Override
-	public void UpdateById(long id, float inputPrice, int inputQuantity) throws Exception {
-		// TODO Auto-generated method stub
+	public void UpdateById(long id, float inputPrice, String inputDescription, int inputQuantity) throws Exception {
+		if(inputPrice < 0 || inputPrice > 1000 ||inputDescription == null || !inputDescription.matches("[A-Za-z0-9 ,.;:]+")
+				||inputQuantity < 0 || inputQuantity > 100);
+		{
+			throw new Exception("Problems with input params");
+		}
 		
+		Product productForUpdate= retrieveByID(id);
+		productForUpdate.setPrice(inputPrice);
+		productForUpdate.setDescription(inputDescription);
+		productForUpdate.setQuantity(inputQuantity);
 	}
+		
+		
+		
+
 
 	@Override
 	public void DeleteById(long id) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
+
 	
 
 }

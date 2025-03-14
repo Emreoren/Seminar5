@@ -52,9 +52,8 @@ public class myFirstController {
 						new Product("keyboard", 18.99f, "Economic, bloack", 151 ),
 						new Product("Apple", 3.99f, "healthy, red", 10000 ),
 						new Product("sugar", 0.99f, "sugary, white", 6 )
-						
-						
-						));
+						)
+				);
 		model.addAttribute("boxies", allProducts);
 		return "array-product-page";
 	}

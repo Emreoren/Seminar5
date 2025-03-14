@@ -21,9 +21,10 @@ public interface IProductCRUDService {
 	
 	
 	//U
-	public abstract ArrayList<Product> UpdateById (long id, float inputTitle, int inputQuantity) throws Exception;
+	public abstract void UpdateById (long id, float inputPrice, int inputQuantity) throws Exception;
 	
-	
+	//D
+	public abstract void DeleteById(long id)throws Exception;
 	
 	
 	

@@ -18,9 +18,32 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 	
 	
 	@Override
-	public void create(String inputTitle, float inputPrice, String inputDescriptrion, int inputQuantity)
+	public void create(String inputTitle, float inputPrice, String inputDescription, int inputQuantity)
 			throws Exception {
-		// TODO Auto-generated method stub
+		if(inputTitle == null || !inputTitle.matches("[A-Z]{1}[a-z ]{2,20}")
+				|| inputPrice < 0 || inputPrice > 1000
+				|| inputDescription == null || !inputDescription.matches("[A-Za-z0-9 ,.;:]+")
+				|| inputQuantity < 0 || inputQuantity > 100)
+		{
+			throw new Exception("Problems with input params");
+		}
+		
+		if(prodRepo.existsByTitleAndDescriptionAndPrice(inputTitle,inputDescription, inputPrice ))
+		{
+			Product retrieveProduct = 
+				prodRepo.findByTitleAndPriceAndDescription(inputTitle, inputPrice, inputDescription);
+			
+			int newQuantity = retrieveProduct.getQuantity() + inputQuantity;
+			retrieveProduct.setQuantity(newQuantity);
+			prodRepo.save(retrieveProduct);//this will update the product
+		}
+		
+		else
+		{
+			Product newProduct = new Product(inputTitle, inputPrice, inputDescription, inputQuantity);
+			prodRepo.save(newProduct);//this will save the new product
+		}
+		
 		
 	}
 
@@ -35,37 +58,39 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 		return allProducts;
 	}
 
+
 	@Override
-	public Product retrieveByID(long id) throws Exception 
-	{
-		if(id <= 0) 
+	public Product retrieveById(long id) throws Exception {
+		//TODO
+		if(id <= 0)
 		{
-			throw new Exception("Id should be positive");
+			throw new Exception("Id should positive");
 		}
-		if(!prodRepo.existsById(id))
-		{
-			throw new Exception("The product with id "+ id + "doesn't exist");
+		if(!prodRepo.existsById(id)) {
+			throw new Exception("The product with id " + id + " doesn't exist");
 		}
 		
 		Product oneProduct = prodRepo.findById(id).get();
 		return oneProduct;
-		
-		
 	}
 
 	@Override
 	public void UpdateById(long id, float inputPrice, String inputDescription, int inputQuantity) throws Exception {
 		if(inputPrice < 0 || inputPrice > 1000 ||inputDescription == null || !inputDescription.matches("[A-Za-z0-9 ,.;:]+")
-				||inputQuantity < 0 || inputQuantity > 100);
+				||inputQuantity < 0 || inputQuantity > 100)
 		{
 			throw new Exception("Problems with input params");
 		}
 		
-		Product productForUpdate= retrieveByID(id);
+		Product productForUpdate = retrieveById(id);
 		productForUpdate.setPrice(inputPrice);
 		productForUpdate.setDescription(inputDescription);
 		productForUpdate.setQuantity(inputQuantity);
-	}
+		
+		prodRepo.save(productForUpdate);
+		
+		}
+		
 		
 		
 		
@@ -73,7 +98,8 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 
 	@Override
 	public void DeleteById(long id) throws Exception {
-		// TODO Auto-generated method stub
+		Product productForDelete = retrieveById(id);
+		prodRepo.delete(productForDelete);
 		
 	}
 

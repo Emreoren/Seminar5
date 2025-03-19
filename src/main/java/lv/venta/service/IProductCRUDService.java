@@ -9,15 +9,15 @@ public interface IProductCRUDService {
 	
 	
 	//C
-	public abstract void create(String inputTitle, float inputPrice, String inputDescriptrion, int inputQuantity)throws Exception ;
+	public abstract void create(String inputTitle, float inputPrice, String inputDescription, int inputQuantity)throws Exception ;
 	
 	
 	//R
 	public abstract ArrayList<Product> retrieveAll () throws Exception;
 	
 	
-	//R
-	public abstract Product retrieveByID(long id)throws Exception;
+	//R 
+	public abstract Product retrieveById(long id) throws Exception;
 	
 	
 	//U
@@ -25,6 +25,7 @@ public interface IProductCRUDService {
 	
 	//D
 	public abstract void DeleteById(long id)throws Exception;
+
 	
 	
 	

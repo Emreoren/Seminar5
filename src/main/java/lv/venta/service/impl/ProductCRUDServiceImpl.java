@@ -21,9 +21,9 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 	public void create(String inputTitle, float inputPrice, String inputDescription, int inputQuantity)
 			throws Exception {
 		if(inputTitle == null || !inputTitle.matches("[A-Z]{1}[a-z ]{2,20}")
-				|| inputPrice < 0 || inputPrice > 1000
+				|| inputPrice < 0 || inputPrice > 100000
 				|| inputDescription == null || !inputDescription.matches("[A-Za-z0-9 ,.;:]+")
-				|| inputQuantity < 0 || inputQuantity > 100)
+				|| inputQuantity < 0 || inputQuantity > 10000)
 		{
 			throw new Exception("Problems with input params");
 		}

@@ -40,7 +40,7 @@ public class Product {
 	private String title;	
 	
 	@Min(0)
-	@Max(1000)
+	@Max(100000)
 	@Column(name = "Price")
 	private float price;
 	
@@ -52,7 +52,7 @@ public class Product {
 	
 	
 	@Min(0)
-	@Max(10000)
+	@Max(1000000)
 	@Column(name = "Quantity")
 	private int quantity;
 	
